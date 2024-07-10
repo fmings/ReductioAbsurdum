@@ -1,4 +1,5 @@
-﻿List<Product> products = new List<Product>();
+﻿
+List<Product> products = new List<Product>()
 {
     new Product()
     {
@@ -6,28 +7,28 @@
         Price = 82.00M,
         Sold = false,
         ProductTypeId = 1
-    };
+    },
     new Product()
     {
         Name = "Polyjuice Potion",
         Price = 44.00M,
         Sold = false,
         ProductTypeId = 2
-    };
+    },
     new Product()
     {
         Name = "Invisibility Cloak",
         Price = 299.00M,
         Sold = false,
         ProductTypeId = 3
-    };
+    },
     new Product()
     {
         Name = "Elder Wand",
         Price = 999.00M,
         Sold = true,
         ProductTypeId = 4
-    };
+    },
 };
 
 string greeting = "Welcome to Reductio & Absurdum!";
@@ -48,7 +49,8 @@ while (choice != "0")
     }
     else if (choice == "1")
     {
-        Console.WriteLine("View All Products");
+        Console.WriteLine("All Products:");
+        ListProducts();
     }
     else if (choice == "2")
     {
@@ -61,5 +63,13 @@ while (choice != "0")
     else if (choice == "4")
     {
         Console.WriteLine("Update Product Details");
+    }
+}
+
+void ListProducts()
+{
+    for (int i = 0; i < products.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
     }
 }
