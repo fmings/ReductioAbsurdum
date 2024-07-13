@@ -31,6 +31,30 @@ List<Product> products = new List<Product>()
     },
 };
 
+List<ProductType> productTypes = new List<ProductType>()
+{
+    new ProductType()
+    {
+        Id = 1,
+        Name = "Apparel"
+    },
+    new ProductType()
+    {
+        Id = 2,
+        Name = "Potions"
+    },
+    new ProductType()
+    {
+        Id = 3,
+        Name = "Enchanted Objects"
+    },
+    new ProductType()
+    {
+        Id = 4,
+        Name = "Wands"
+    }
+};
+
 string greeting = "Welcome to Reductio & Absurdum!";
 Console.WriteLine(greeting);
 string choice = null;
@@ -54,11 +78,11 @@ while (choice != "0")
     }
     else if (choice == "2")
     {
-        Console.WriteLine("Add Product to Inventory");
+        AddProduct();
     }
     else if (choice == "3")
     {
-        Console.WriteLine("Remove Product from Inventory");
+        RemoveProduct();
     }
     else if (choice == "4")
     {
@@ -70,6 +94,57 @@ void ListProducts()
 {
     for (int i = 0; i < products.Count; i++)
     {
-        Console.WriteLine($"{i + 1}. {products[i].Name}");
+        var productType = productTypes.FirstOrDefault(p => p.Id == products[i].ProductTypeId);
+        Console.WriteLine($"{i + 1}. Product: {products[i].Name}, Type: {productType?.Name}, Price:{products[i].Price}, Availablility: {(products[i].Sold ? "Not Available" : "Available")} ");
     }
+}
+
+void AddProduct()
+{
+    Console.WriteLine("Enter the name of the product:");
+    string name = Console.ReadLine();
+
+    Console.WriteLine("Enter the price of the product (x.xx format):");
+    decimal price = decimal.Parse(Console.ReadLine());
+
+    Console.WriteLine("Select the product type:");
+    {
+        for (int i = 0; i < productTypes.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {productTypes[i].Name}");
+        }
+    }
+    int id = int.Parse(Console.ReadLine());
+
+    Product newProduct = new Product()
+    {
+        Name = name,
+        Price = price,
+        Sold = false,
+        ProductTypeId = id,
+    };
+
+    Console.WriteLine("Your product has been added!");
+}
+
+void RemoveProduct()
+{
+    ListProducts();
+    Console.WriteLine("Please enter the number of which product you would like to remove:");
+    int selectedProduct;
+    if (int.TryParse(Console.ReadLine(), out selectedProduct) && selectedProduct > 0 && selectedProduct <= products.Count)
+    {
+        products.RemoveAt(selectedProduct - 1);
+    }
+    else
+    {
+        Console.WriteLine("Invalid entry. Please enter a valid number.");
+    }
+    Console.WriteLine("Remaining Product:");
+    ListProducts();
+}
+
+void UpdateProduct()
+{
+
 }
