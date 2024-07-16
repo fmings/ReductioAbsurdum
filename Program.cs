@@ -136,7 +136,7 @@ void AddProduct()
         ProductTypeId = id,
         DateStocked = DateTime.Now
     };
-
+    products.Add(newProduct);
     Console.WriteLine("Your product has been added!");
 }
 
